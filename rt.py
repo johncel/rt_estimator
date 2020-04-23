@@ -2,6 +2,7 @@ from datetime import date
 import matplotlib.pyplot as plt
 import numpy as np
 import math
+import argparse
 
 # constants
 T = 5 # length of days a person is contageous
@@ -132,7 +133,13 @@ def plot_data(data, start_i=0):
 
     plt.show()
 
-data = read_data('data_mexico.csv')
+parser = argparse.ArgumentParser()
+parser.add_argument("-f", "--file", type=str)
+args = parser.parse_args()
+
+fname = args.file
+
+data = read_data(fname)
 data['r0_cases'] = compute_r0_over_dataset(data['total_cases'])
 data['r0_deaths'] = compute_r0_over_dataset(data['total_deaths'])
 plot_data(data, start_i = 20)
